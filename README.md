@@ -1,3 +1,23 @@
+## Backend Env
+
+Edit `config` file 
+
+```javascript
+// config.js
+
+module.exports = {
+  mailerTransporter: { // cf. https://nodemailer.com/transports/ for others transport mechanisms
+    service: 'gmail',
+    auth: {
+      user: '<YOUR_MAIL>@gmail.com',
+      pass: '<YOUR_PASSWORD>'
+    }
+  }
+}
+```
+
+---------
+
 # *NodeJS/React*
 
 ![yeah christmas](https://media.giphy.com/media/11EjiLDatd0syA/giphy.gif)
