@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Gift from './Gift';
 import logo from './logo.png';
 import './App.css';
+import * as api from './api'
 
 class App extends Component {
   constructor(props) {
@@ -11,14 +12,30 @@ class App extends Component {
       gifts: []
     };
 
-    this.removeGift = this.removeGift.bind(this);
+    this.refreshGifts = gifts => this.setState({ gifts })
+    this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  removeGift() {
+  handleSubmit(event) {
+    event.preventDefault()
+    const { value: gift } = event.target[0]
 
+    if (!gift) { return }
+
+    api.add(gift)
+      .then(this.refreshGifts).catch(console.error)
+  }
+
+  componentDidMount() {
+    api.get().then(this.refreshGifts).catch(console.error)
   }
 
   render() {
+    const gifts = this.state.gifts.map((gift, index) =>
+      <Gift key={index} name={gift} remove={() => api.remove(index)
+        .then(this.refreshGifts).catch(console.error)} />
+    )
+
     return (
       <div className="App">
         <header className="App-header">
@@ -26,19 +43,21 @@ class App extends Component {
           <h1 className="App-title">It's Christmas !</h1>
         </header>
 
-        <img src="https://media.giphy.com/media/JltOMwYmi0VrO/giphy.gif" />
+        <img src="https://media.giphy.com/media/JltOMwYmi0VrO/giphy.gif" alt="" />
 
-        <form>
+        <form onSubmit={this.handleSubmit}>
           <input type="text" />
           <button type="submit"> Ajouter </button>
         </form>
 
         <div className="GiftWrapper">
-          <Gift name="Ferrari LaFerrari" remove={this.removeGift} />
-          <Gift name="Palace en Espagne" remove={this.removeGift} />
+          {gifts}
         </div>
 
-        <button type="button" className="mail"> Dear Santa Florian, send me my gifts</button>
+        <button type="button" className="mail" onClick={() => api.notify()
+          .catch(console.error)}>
+          Dear Santa Florian, send me my gifts
+        </button>
 
       </div>
     );
