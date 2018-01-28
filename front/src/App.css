@@ -3,12 +3,12 @@
 }
 
 .App form {
-  margin: 20px 0; 
+  margin: 20px 0;
 }
 
 .App form input {
   width: 200px;
-  margin-right: 10px; 
+  margin-right: 10px;
 }
 
 .App-logo {
@@ -48,7 +48,7 @@
 .mail {
   padding: 10px;
   border-radius: 5px;
-  border: 1px solid red;
+  border: 2px solid grey;
   outline: none;
   cursor: pointer;
 }

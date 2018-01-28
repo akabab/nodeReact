@@ -4,10 +4,10 @@ const handleErrors = res => {
   if (!res.ok) {
     throw Error(res.statusText)
   }
-  return res
+  return res.json()
 }
 
-const get = () => fetch(host).then(handleErrors).then(res => res.json())
+const get = () => fetch(host).then(handleErrors)
 
 const add = gift => {
   const options = {
@@ -16,7 +16,7 @@ const add = gift => {
     body: JSON.stringify({ gift }),
   }
 
-  return fetch(host, options).then(handleErrors).then(res => res.json())
+  return fetch(host, options).then(handleErrors)
 }
 
 const remove = index => {
@@ -26,7 +26,7 @@ const remove = index => {
     body: JSON.stringify({ index }),
   }
 
-  return fetch(host, options).then(handleErrors).then(res => res.json())
+  return fetch(host, options).then(handleErrors)
 }
 
 const notify = () => fetch(host + '/notify').then(handleErrors)

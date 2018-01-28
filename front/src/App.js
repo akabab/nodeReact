@@ -14,6 +14,7 @@ class App extends Component {
 
     this.refreshGifts = gifts => this.setState({ gifts })
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.notify = this.notify.bind(this)
   }
 
   handleSubmit(event) {
@@ -24,6 +25,16 @@ class App extends Component {
 
     api.add(gift)
       .then(this.refreshGifts).catch(console.error)
+  }
+
+  notify() {
+    const elem = document.getElementById('notify')
+    elem.style.borderColor = 'grey'
+    api.notify()
+      .then(status => {
+        elem.style.borderColor = status === 'ok' ? 'green' : 'red'
+      })
+      .catch(console.error)
   }
 
   componentDidMount() {
@@ -54,8 +65,7 @@ class App extends Component {
           {gifts}
         </div>
 
-        <button type="button" className="mail" onClick={() => api.notify()
-          .catch(console.error)}>
+        <button id="notify" type="button" className="mail" onClick={this.notify}>
           Dear Santa Florian, send me my gifts
         </button>
 
