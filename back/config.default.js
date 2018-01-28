@@ -5,5 +5,6 @@ module.exports = {
       user: '<YOUR_MAIL>@gmail.com',
       pass: '<YOUR_PASSWORD>'
     }
-  }
+  },
+  senderEmail: '<YOUR_MAIL>'
 }

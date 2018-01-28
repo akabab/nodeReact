@@ -3,7 +3,12 @@ const util = require('util');
 const readFileAsync = util.promisify(fs.readFile);
 const writeFileAsync = util.promisify(fs.writeFile);
 const nodemailer = require('nodemailer');
+
+if (!fs.existsSync('./config.js')) {
+  throw Error('Please provide a config file, based on config.default.js file.')
+}
 const config = require('../config')
+const santaEmail = 'florian@wildcodeschool.fr'
 
 const transporter = nodemailer.createTransport(config.mailerTransporter)
 
@@ -52,8 +57,8 @@ const Gifts = {
       .then(gifts => {
         const list = gifts.map(gift => `<li>${gift}</li>`).join('')
         const mailOptions = {
-          from: 'yoanncribier@gmail.com',
-          to: 'florian@wildcodeschool.fr',
+          from: `Un enfant sage <${config.senderEmail}>`,
+          to: santaEmail,
           subject: `Cher Père Noël, j'ai été sage`,
           html: `<h3>Ma liste de cadeaux</h3><ul>${list}</ul>`
         }

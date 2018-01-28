@@ -1,6 +1,8 @@
 ## Backend Env
 
-Edit `config` file 
+Create your `config` file based on `config.default.js` file
+
+`cp config.default.js config.js`
 
 ```javascript
 // config.js
@@ -12,7 +14,8 @@ module.exports = {
       user: '<YOUR_MAIL>@gmail.com',
       pass: '<YOUR_PASSWORD>'
     }
-  }
+  },
+  senderEmail: '<YOUR_MAIL>'
 }
 ```
 
